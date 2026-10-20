@@ -19,14 +19,26 @@ export default function RevenueManagementPage() {
   const [revenues, setRevenues] = useState([]);
   const [isOpenForm, setIsOpenForm] = useState(false);
   const [selectedRevenue, setSelectedRevenue] = useState(null);
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fetchError, setFetchError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const fetchRevenues = useCallback(async () => {
+    setIsLoading(true);
+    setFetchError("");
     try {
       const result = await getWeeklyRevenues(selectedDate);
       setRevenues(result.data);
     } catch (error) {
       console.error("Failed to fetch revenues:", error);
+      setFetchError(
+        error.response?.data?.message ||
+          "Failed to load revenue data. Please try again.",
+      );
+    } finally {
+      setIsLoading(false);
     }
   }, [selectedDate]);
 
@@ -37,11 +49,13 @@ export default function RevenueManagementPage() {
   const onEdit = (revenue) => {
     setSelectedRevenue(revenue);
     setIsOpenForm(true);
+    setErrorMessage("");
   };
 
   const onAdd = (revenue) => {
     setSelectedRevenue(revenue);
     setIsOpenForm(true);
+    setErrorMessage("");
   };
 
   const handleSaveRevenue = async (data) => {

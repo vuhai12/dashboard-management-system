@@ -91,7 +91,11 @@ export const WeeklyRevenueBarChart = ({
                             setCompare(true);
                           toggleSeries(item.key);
                         }}
-                        className={`flex items-center gap-1.5 text-[11px] transition ${isVisible ? "text-[#686865]" : "hidden"}`}
+                        className={`flex items-center gap-1.5 text-[11px] transition ${
+                          isVisible
+                            ? "text-[#686865]"
+                            : "text-gray-400 opacity-60"
+                        }`}
                       >
                         <span
                           className="h-[7px] w-[7px] rounded-full"

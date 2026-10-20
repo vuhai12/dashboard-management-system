@@ -37,19 +37,23 @@ export default function WeeklyRevenueTable({ revenues, onEdit, onAdd }) {
                   </td>
 
                   <td className="whitespace-nowrap px-[11px] text-[#152a55]">
-                    {formatNumber(revenue?.posRevenue)}
+                    {revenue.hasData ? formatNumber(revenue.posRevenue) : "—"}
                   </td>
                   <td className="whitespace-nowrap px-[11px] text-[#152a55]">
-                    {formatNumber(revenue?.eatclubRevenue)}
+                    {revenue.hasData
+                      ? formatNumber(revenue.eatclubRevenue)
+                      : "—"}
                   </td>
                   <td className="whitespace-nowrap px-[11px] text-[#152a55]">
-                    {formatNumber(revenue?.labourCosts)}
+                    {revenue.hasData ? formatNumber(revenue.labourCosts) : "—"}
                   </td>
                   <td className="whitespace-nowrap px-[11px] text-[#152a55]">
-                    {formatNumber(revenue?.directRevenue)}
+                    {revenue.hasData
+                      ? formatNumber(revenue.directRevenue)
+                      : "—"}
                   </td>
                   <td className="whitespace-nowrap px-[11px] text-[#152a55]">
-                    {formatNumber(revenue?.totalCovers)}
+                    {revenue.hasData ? formatNumber(revenue.totalCovers) : "—"}
                   </td>
                   <td className="px-[11px]">
                     {revenue?.hasData ? (

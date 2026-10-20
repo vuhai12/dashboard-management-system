@@ -1,10 +1,13 @@
-export function formatNumber(value) {
-  return value === "" ||
-    value === null ||
-    value === undefined ||
-    value === 0 ||
-    value === "0" ||
-    value === "0.00"
-    ? "—"
-    : Number(value).toLocaleString("en-US");
-}
+export const formatNumber = (value) => {
+  if (value === null || value === undefined || value === "") {
+    return "—";
+  }
+
+  const number = Number(value);
+
+  if (Number.isNaN(number)) {
+    return "—";
+  }
+
+  return number.toLocaleString("en-US");
+};
