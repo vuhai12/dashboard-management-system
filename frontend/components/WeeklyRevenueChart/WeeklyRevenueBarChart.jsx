@@ -28,6 +28,7 @@ export const WeeklyRevenueBarChart = ({
   visible,
   selectedRevenueDataDashboard,
 }) => {
+  console.log("selectedRevenueDataDashboard", selectedRevenueDataDashboard);
   return (
     <div className="h-[290px] w-full sm:h-[340px]">
       <ResponsiveContainer width="100%" height="100%">
@@ -77,39 +78,33 @@ export const WeeklyRevenueBarChart = ({
           />
           <Legend
             content={() => (
-              <div className="flex flex-wrap mt-5 items-center justify-center gap-x-4 gap-y-3 text-[11px]">
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[11px]">
                 <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
                   {SERIES.map((item) => {
-                    const disabled = item.key.includes("Prev") && !compare;
-                    const isVisible = visible[item.key] && !disabled;
+                    const isPrevious = item.key.includes("Prev");
+
+                    // Hide previous series when Compare is off.
+                    if (isPrevious && !compare) return null;
+
+                    // Hide the legend item when its checkbox is unchecked.
+                    if (!visible[item.key]) return null;
+
                     return (
-                      <button
-                        type="button"
+                      <div
                         key={item.key}
-                        onClick={() => {
-                          if (item.key.includes("Prev") && !compare)
-                            setCompare(true);
-                          toggleSeries(item.key);
-                        }}
-                        className={`flex items-center gap-1.5 text-[11px] transition ${
-                          isVisible
-                            ? "text-[#686865]"
-                            : "text-gray-400 opacity-60"
-                        }`}
+                        className="flex items-center gap-1.5 text-[#686865]"
                       >
                         <span
                           className="h-[7px] w-[7px] rounded-full"
-                          style={{
-                            background: item.color,
-                            opacity: isVisible ? 1 : 0.4,
-                          }}
+                          style={{ background: item.color }}
                         />
                         {item.label}
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
-                <div className="flex flex-wrap  items-center justify-center gap-x-5 gap-y-2  border-l border-gray-300 pl-5 text-[11px] text-[#555550]">
+
+                <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 border-l border-gray-300 pl-5 text-[11px] text-[#555550]">
                   <span className="flex items-center gap-2">
                     <span className="flex h-4 w-4 items-center justify-center text-[#29965c]">
                       <svg
@@ -127,6 +122,7 @@ export const WeeklyRevenueBarChart = ({
                     </span>
                     Positive Event Impact
                   </span>
+
                   <span className="flex items-center gap-2">
                     <span className="flex h-4 w-4 items-center justify-center text-[#d94d58]">
                       <svg
