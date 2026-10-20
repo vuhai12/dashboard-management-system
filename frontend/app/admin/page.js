@@ -59,6 +59,7 @@ export default function RevenueManagementPage() {
   };
 
   const handleSaveRevenue = async (data) => {
+    setErrorMessage("");
     try {
       if (selectedRevenue?.hasData) {
         await updateRevenue(selectedRevenue.id, data);
@@ -70,9 +71,15 @@ export default function RevenueManagementPage() {
       }
 
       setIsOpenForm(false);
+      setSelectedRevenue(null);
       await fetchRevenues();
     } catch (error) {
       console.error("Failed to save revenue:", error);
+
+      setErrorMessage(
+        error.response?.data?.message ||
+          "Failed to save revenue. Please check your input and try again.",
+      );
     }
   };
 
@@ -106,6 +113,7 @@ export default function RevenueManagementPage() {
             setIsOpenForm={setIsOpenForm}
             initialData={selectedRevenue}
             onSubmit={handleSaveRevenue}
+            errorMessage={errorMessage}
           />
         )}
       </div>
