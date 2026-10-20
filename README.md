@@ -134,7 +134,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 
 ### Bước 1: Tải mã nguồn
 
-git clone <repository-url>
+git clone https://github.com/vuhai12/dashboard-management-system.git
 cd dashboard-management-system
 
 ### Bước 2: Tạo file môi trường
