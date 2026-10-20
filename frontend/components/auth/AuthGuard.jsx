@@ -23,12 +23,7 @@ export default function AuthGuard({ children }) {
       setIsAuthorized(true);
     } catch (error) {
       localStorage.removeItem("accessToken");
-
-      if (error.response?.status === 403) {
-        router.replace("/unauthorized");
-      } else {
-        router.replace("/login");
-      }
+      router.replace("/login");
     } finally {
       setIsChecking(false);
     }
