@@ -129,28 +129,28 @@ export default function WeeklyRevenueTable({ revenues, onEdit, onAdd }) {
               <div className="rounded-lg bg-[#f8faff] p-3">
                 <p className="text-[11px] text-[#7182a3]">POS Revenue</p>
                 <p className="mt-1 break-words text-sm font-semibold text-[#152a55]">
-                  {formatNumber(revenue.posRevenue)}
+                  {revenue.hasData ? formatNumber(revenue.posRevenue) : "—"}
                 </p>
               </div>
 
               <div className="rounded-lg bg-[#f8faff] p-3">
                 <p className="text-[11px] text-[#7182a3]">Eatclub Revenue</p>
                 <p className="mt-1 break-words text-sm font-semibold text-[#152a55]">
-                  {formatNumber(revenue.eatclubRevenue)}
+                  {revenue.hasData ? formatNumber(revenue.eatclubRevenue) : "—"}
                 </p>
               </div>
 
               <div className="rounded-lg bg-[#f8faff] p-3">
                 <p className="text-[11px] text-[#7182a3]">Labour Costs</p>
                 <p className="mt-1 break-words text-sm font-semibold text-[#152a55]">
-                  {formatNumber(revenue.labourCosts)}
+                  {revenue.hasData ? formatNumber(revenue.labourCosts) : "—"}
                 </p>
               </div>
 
               <div className="rounded-lg bg-[#f8faff] p-3">
                 <p className="text-[11px] text-[#7182a3]">Direct Revenue</p>
                 <p className="mt-1 break-words text-sm font-semibold text-[#152a55]">
-                  {formatNumber(revenue.directRevenue)}
+                  {revenue.hasData ? formatNumber(revenue.directRevenue) : "—"}
                 </p>
               </div>
 
@@ -158,7 +158,7 @@ export default function WeeklyRevenueTable({ revenues, onEdit, onAdd }) {
               <div className="col-span-2 rounded-lg border border-[#e4ebf8] p-3">
                 <p className="text-[11px] text-[#7182a3]">Total Covers</p>
                 <p className="mt-1 text-sm font-semibold text-[#152a55]">
-                  {formatNumber(revenue.totalCovers)}
+                  {revenue.hasData ? formatNumber(revenue.totalCovers) : "—"}
                 </p>
               </div>
             </div>
