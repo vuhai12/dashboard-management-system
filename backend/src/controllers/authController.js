@@ -79,7 +79,7 @@ export const refreshAccessToken = (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("refresh_token", {
+  res.clearCookie("refreshToken", {
     httpOnly: true,
     sameSite: "lax",
     path: "/api/auth",
