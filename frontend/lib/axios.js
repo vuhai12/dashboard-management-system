@@ -68,6 +68,13 @@ api.interceptors.response.use(
       return api(originalRequest);
     } catch (refreshError) {
       localStorage.removeItem("accessToken");
+      // Redirect to login when the refresh token expires or becomes invalid.
+      if (
+        typeof window !== "undefined" &&
+        window.location.pathname !== "/login"
+      ) {
+        window.location.replace("/login");
+      }
       return Promise.reject(refreshError);
     }
   },
