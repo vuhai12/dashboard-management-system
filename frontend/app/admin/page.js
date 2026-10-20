@@ -13,6 +13,7 @@ import AuthGuard from "@/components/auth/AuthGuard";
 import { Sidebar } from "@/components/common/Sidebar";
 import { RevenueManagement } from "@/components/RevenueManagement/RevenueManagement";
 import { logoutApi } from "@/services/authService";
+import ErrorAlert from "@/components/common/ErrorAlert";
 
 export default function RevenueManagementPage() {
   const [selectedDate, setSelectedDate] = useState(() => toISODate(new Date()));
@@ -22,11 +23,9 @@ export default function RevenueManagementPage() {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [fetchError, setFetchError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const fetchRevenues = useCallback(async () => {
-    setIsLoading(true);
     setFetchError("");
     try {
       const result = await getWeeklyRevenues(selectedDate);
@@ -37,8 +36,6 @@ export default function RevenueManagementPage() {
         error.response?.data?.message ||
           "Failed to load revenue data. Please try again.",
       );
-    } finally {
-      setIsLoading(false);
     }
   }, [selectedDate]);
 
@@ -99,6 +96,7 @@ export default function RevenueManagementPage() {
       <div className="min-h-screen bg-[#f7f9fd] text-[#10234f]">
         <div className="flex min-h-screen">
           <Sidebar onLogout={handleLogout} />
+
           <RevenueManagement
             onEdit={onEdit}
             onAdd={onAdd}
@@ -116,6 +114,12 @@ export default function RevenueManagementPage() {
             errorMessage={errorMessage}
           />
         )}
+
+        <ErrorAlert
+          message={fetchError}
+          onClose={() => setFetchError("")}
+          onRetry={fetchRevenues}
+        />
       </div>
     </AuthGuard>
   );

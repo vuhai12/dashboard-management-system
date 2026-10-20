@@ -9,6 +9,7 @@ import { EventMarker } from "@/components/RevenueManagement/EventMarker";
 import { RevenueSummary } from "@/components/WeeklyRevenueChart/RevenueSummary";
 import { WeeklyRevenueBarChart } from "@/components/WeeklyRevenueChart/WeeklyRevenueBarChart";
 import { RevenueChartControls } from "@/components/WeeklyRevenueChart/RevenueChartControls";
+import ErrorAlert from "@/components/common/ErrorAlert";
 
 export default function RevenueChart() {
   const [compare, setCompare] = useState(true);
@@ -25,15 +26,21 @@ export default function RevenueChart() {
   const [selectedRevenueDataDashboard, setSelectedRevenueDataDashboard] =
     useState([]);
   const [summary, setSummary] = useState(null);
+  const [fetchError, setFetchError] = useState("");
   const chartRef = useRef(null);
 
   const fetchRevenuesDashboard = useCallback(async () => {
+    setFetchError("");
     try {
       const result = await getRevenueDashboard(selectedDate);
       setSummary(result.summary);
       setSelectedRevenueDataDashboard(result.data);
     } catch (error) {
       console.error("Failed to fetch revenues:", error);
+      setFetchError(
+        error.response?.data?.message ||
+          "Failed to load revenue dashboard. Please try again.",
+      );
     }
   }, [selectedDate]);
 
@@ -95,6 +102,11 @@ export default function RevenueChart() {
             ? "positive"
             : "negative"
         }
+      />
+      <ErrorAlert
+        message={fetchError}
+        onClose={() => setFetchError("")}
+        onRetry={fetchRevenuesDashboard}
       />
     </section>
   );
