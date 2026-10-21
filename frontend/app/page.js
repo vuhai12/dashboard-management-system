@@ -90,8 +90,6 @@ export default function RevenueChart() {
       <WeeklyRevenueBarChart
         compare={compare}
         visible={visible}
-        toggleSeries={toggleSeries}
-        setCompare={setCompare}
         selectedRevenueDataDashboard={selectedRevenueDataDashboard}
       />
       <EventMarker

@@ -23,12 +23,9 @@ const SERIES = [
 
 export const WeeklyRevenueBarChart = ({
   compare,
-  setCompare,
-  toggleSeries,
   visible,
   selectedRevenueDataDashboard,
 }) => {
-  console.log("selectedRevenueDataDashboard", selectedRevenueDataDashboard);
   return (
     <div className="h-[290px] w-full sm:h-[340px]">
       <ResponsiveContainer width="100%" height="100%">
