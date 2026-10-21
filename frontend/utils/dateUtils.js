@@ -5,35 +5,6 @@ export function toISODate(date) {
   return `${year}-${month}-${day}`;
 }
 
-export function formatDate(date) {
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-}
-
-export function parseLocalDate(value) {
-  const [year, month, day] = value.split("-").map(Number);
-  return new Date(year, month - 1, day);
-}
-
-export function getWeek(dateValue) {
-  const date = parseLocalDate(dateValue);
-  const monday = new Date(date);
-  monday.setDate(date.getDate() - ((date.getDay() + 6) % 7));
-
-  return Array.from({ length: 7 }, (_, index) => {
-    const day = new Date(monday);
-    day.setDate(monday.getDate() + index);
-    return day;
-  });
-}
-
-export function dayName(date) {
-  return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
-}
-
 export function getWeekRange(dateString) {
   if (!dateString) return "";
 
