@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import Revenue from "../models/Revenue.js";
 
-const DAY_NAMES = [
+const DAY_NAMES_BY_UTC_DAY = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -62,7 +62,7 @@ export async function getWeeklyRevenues(dateInput) {
     data.push({
       id: revenue?.id ?? null,
       date,
-      dayOfWeek: DAY_NAMES[currentDate.getUTCDay()],
+      dayOfWeek: DAY_NAMES_BY_UTC_DAY[currentDate.getUTCDay()],
       hasData: Boolean(revenue),
 
       posRevenue: revenue?.posRevenue ?? 0,
@@ -131,7 +131,7 @@ export async function updateRevenueService(id, payload) {
 }
 
 export async function getRevenueDashboardService(dateInput) {
-  const DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const WEEKDAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const formatDate = (date) => date.toISOString().slice(0, 10);
 
@@ -223,13 +223,13 @@ export async function getRevenueDashboardService(dateInput) {
 
     currentDays.push({
       date: currentDateString,
-      day: DAY_NAMES[i],
+      day: WEEKDAY_NAMES[i],
       ...getDayRevenue(currentDateString),
     });
 
     previousDays.push({
       date: previousDateString,
-      day: DAY_NAMES[i],
+      day: WEEKDAY_NAMES[i],
       ...getDayRevenue(previousDateString),
     });
   }
